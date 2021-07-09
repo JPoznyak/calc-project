@@ -31,30 +31,30 @@
 
     <div class="check">
         <input type="checkbox" id="checkbox" v-model="checked">
-            {{ checked }}
+        <span v-html="text"></span>
     </div>
 
-     <div class="keyboard">
+     <div class="keyboard" v-if="checked">
         <button class="key" v-for="key in keyboard"
             :key="key"
-            :v-bind:title="key"
+            
+            @click="key.value"
             >
                 {{ key }}
         </button>
-    </div>
+        <button class="key" :key:="dKey">
+            {{ dKey }}
+        </button>
 
-    <div class="collection">
-        <div v-for="(item, idx) in collection" :key="idx">
-            {{ idx }} - {{ item }}
+        <div class="radio">
+            <input type="radio" v-model="radio1" v-bind:key="operand1" value="Операнд №1">
+            <label>Операнд №1</label>
+            <input type="radio" v-model="radio2" v-bind:key="operand1" value="Операнд №1">
+            <label>Операнд №2</label>
         </div>
+
     </div>
 
-    <div class="radio">
-        <input type="radio" value="Операнд №1" v-model="radio1">
-        <label>Операнд №1</label>
-        <input type="radio" value="Операнд №2" v-model="radio2">
-        <label>Операнд №2</label>
-    </div>
   </div>
 </template>
 
@@ -67,8 +67,10 @@ export default {
     result: 0,
     buttons: ['+','-','*','/','round', 'pow'],
     keyboard: [1,2,3,4,5,6,7,8,9,0],
+    dKey: "Del",
     error: "",
-    checked: "Отобразить экранную клавиатуру",
+    checked: true,
+    text: "Отобразить экранную клавиатуру",
     radio1: "",
     radio2: ""
     }),
