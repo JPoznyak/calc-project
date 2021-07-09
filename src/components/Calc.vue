@@ -17,14 +17,7 @@
                 {{ btn }}
         </button>
     </div>
-    <!-- <div class="btns">
-      <button class="btn" @click="add">+</button>
-      <button class="btn" @click="substract">-</button>
-      <button class="btn" @click="multiply">*</button>
-      <button class="btn" @click="divide">/</button>
-      <button class="btn" @click="divideRound">round</button>
-      <button class="btn" @click="pow">pow</button>
-    </div> -->
+   
     <div class="result">
     result : {{ result }}
     </div>
@@ -37,8 +30,6 @@
      <div class="keyboard" v-if="checked">
         <button class="key" v-for="key in keyboard"
             :key="key"
-            
-            @click="key.value"
             >
                 {{ key }}
         </button>
@@ -51,7 +42,7 @@
             <label>Операнд №1</label>
             <input type="radio" v-model="radio2" v-bind:key="operand1" value="Операнд №1">
             <label>Операнд №2</label>
-        </div>
+        </div> 
 
     </div>
 
