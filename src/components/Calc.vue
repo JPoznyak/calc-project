@@ -1,11 +1,11 @@
 <template>
   <div>
     <div>
-      <input class="input" type="number" placeholder="op1" v-model.number="operand1" />
-      <input class="input" type="number" placeholder="op2" v-model.number="operand2" />
+      <input class="input" type="number" placeholder="операнд1" v-model.number="operand1" />
+      <input class="input" type="number" placeholder="операнд2" v-model.number="operand2" />
     </div>
-    <div class="error" v-if="error">
-        Ошибка: {{ error }}
+    <div class="error" v-if="this.operand2 === 0">
+        На 0 делить нельзя!
     </div>
 
     <div class="buttons">
@@ -38,9 +38,9 @@
         </button>
 
         <div class="radio">
-            <input type="radio" v-model="radio1" v-bind:key="operand1" value="Операнд №1">
+            <input type="radio" v-model="radio" v-bind:key="operand1" value="Операнд 1">
             <label>Операнд №1</label>
-            <input type="radio" v-model="radio2" v-bind:key="operand1" value="Операнд №1">
+            <input type="radio" v-model="radio" v-bind:key="operand2" value="Операнд 2">
             <label>Операнд №2</label>
         </div> 
 
@@ -53,17 +53,16 @@
 export default {
   name: "Calc",
   data:()=>({
-    operand1: 0,
-    operand2: 0,
+    operand1: "",
+    operand2: "",
     result: 0,
     buttons: ['+','-','*','/','round', 'pow'],
     keyboard: [1,2,3,4,5,6,7,8,9,0],
     dKey: "Del",
-    error: "",
+    // error: "",
     checked: true,
     text: "Отобразить экранную клавиатуру",
-    radio1: "",
-    radio2: ""
+    radio: ""
     }),
 
   methods: {
