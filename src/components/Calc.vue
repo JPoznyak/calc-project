@@ -1,8 +1,8 @@
 <template>
   <div>
     <div>
-      <input class="input" type="number" placeholder="операнд1" v-model.number="operand1" />
-      <input class="input" type="number" placeholder="операнд2" v-model.number="operand2" />
+      <input class="input" v-bind:title="radio" type="number" placeholder="операнд1" v-model.number="operand1" />
+      <input class="input" v-bind:title="radio" type="number" placeholder="операнд2" v-model.number="operand2" />
     </div>
     <div class="error" v-if="this.operand2 === 0">
         На 0 делить нельзя!
@@ -30,17 +30,19 @@
      <div class="keyboard" v-if="checked">
         <button class="key" v-for="key in keyboard"
             :key="key"
+            v-bind:title="radio"
+            @click="addValue(key)"
             >
                 {{ key }}
         </button>
-        <button class="key" :key:="dKey">
+        <button class="key" :key:="dKey" v-bind:key="radio" @click="remove(index)">
             {{ dKey }}
         </button>
 
         <div class="radio">
             <input type="radio" v-model="radio" v-bind:key="operand1" value="Операнд 1">
             <label>Операнд №1</label>
-            <input type="radio" v-model="radio" v-bind:key="operand2" value="Операнд 2">
+            <input type="radio" v-model="radio"  v-bind:key="operand2" value="Операнд 2">
             <label>Операнд №2</label>
         </div> 
 
@@ -77,6 +79,14 @@ export default {
         }
             this.result = calcOperations[op]()
         },
+
+        addValue(key){
+            this.$emit("input", key.value);
+        },
+
+        remove(index){
+            this.$delete(this.finds, index)
+        }
   }
 }
 </script>
@@ -140,6 +150,10 @@ export default {
 
 .radio label{
     margin-right: 20px;
+}
+
+.activ{
+    border: 5px solid red;
 }
 
 </style>
