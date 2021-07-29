@@ -47,6 +47,7 @@ export default {
             this.error = "На 0 делить нельзя!"
         } else {
         this.sum = this.operand1 / this.operand2
+        this.error = ""
         } 
     },
     divideRound() {
