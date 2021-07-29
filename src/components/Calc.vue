@@ -31,7 +31,7 @@
         <button class="key" v-for="key in keyboard"
             :key="key"
             v-bind:title="radio"
-            @click="addValue(key)"
+            @click="addValue"
             >
                 {{ key }}
         </button>
@@ -81,7 +81,7 @@ export default {
         },
 
         addValue(key){
-            this.$emit("input", key.value);
+            this.$emit(key);
         },
 
         remove(index){
