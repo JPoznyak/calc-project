@@ -4,8 +4,8 @@
       <input class="input" v-bind:title="radio" type="number" placeholder="операнд1" v-model.number="operand1" />
       <input class="input" v-bind:title="radio" type="number" placeholder="операнд2" v-model.number="operand2" />
     </div>
-    <div class="error" v-if="this.operand2 === 0">
-        На 0 делить нельзя!
+    <div class="error">
+        {{ error }}
     </div>
 
     <div class="buttons">
@@ -61,7 +61,7 @@ export default {
     buttons: ['+','-','*','/','round', 'pow'],
     keyboard: [1,2,3,4,5,6,7,8,9,0],
     dKey: "Del",
-    // error: "",
+    error: "",
     checked: true,
     text: "Отобразить экранную клавиатуру",
     radio: ""
@@ -69,11 +69,12 @@ export default {
 
   methods: {
       calculate(op){
+        this.error = ""
         const calcOperations = {
             '+': ()=> this.operand1 + this.operand2,
             '-': ()=> this.operand1 - this.operand2,
             '*': ()=> this.operand1 * this.operand2,
-            '/': ()=> this.operand1 / this.operand2,
+            '/': ()=> (this.operand2 === 0) ? this.error = 'На 0 делить нельзя!' : this.operand1 / this.operand2,
             'round': ()=> Math.round(this.operand1 / this.operand2),
             'pow': ()=> Math.pow(this.operand1, this.operand2)
         }
