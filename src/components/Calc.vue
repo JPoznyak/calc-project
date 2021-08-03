@@ -1,8 +1,8 @@
 <template>
   <div>
     <div>
-      <input class="input" v-bind:title="radio" type="number" placeholder="операнд1" v-model.number="operand1" />
-      <input class="input" v-bind:title="radio" type="number" placeholder="операнд2" v-model.number="operand2" />
+      <input class="input" v-bind:key="radio" type="number" placeholder="операнд1" v-model.number="operand1" />
+      <input class="input" v-bind:key="radio" type="number" placeholder="операнд2" v-model.number="operand2" />
     </div>
     <div class="error">
         {{ error }}
@@ -28,22 +28,23 @@
     </div>
 
      <div class="keyboard" v-if="checked">
-        <button class="key" v-for="key in keyboard"
-            :key="key"
-            v-bind:title="radio"
+        <button class="key" v-for="(key, idx) in keyboard"
+            :key="idx"
+            v-bind:value="key"
             @click="addValue"
             >
                 {{ key }}
         </button>
-        <button class="key" :key:="dKey" v-bind:key="radio" @click="remove(index)">
+        <button class="key" :key:="dKey" @click="remove(i)">
             {{ dKey }}
         </button>
 
         <div class="radio">
-            <input type="radio" v-model="radio" v-bind:key="operand1" value="Операнд 1">
-            <label>Операнд №1</label>
-            <input type="radio" v-model="radio"  v-bind:key="operand2" value="Операнд 2">
-            <label>Операнд №2</label>
+            <input type="radio" v-model="radio" v-bind:key="operand1" value="operand1">
+            <label>Операнд 1</label>
+            <input type="radio" v-model="radio" v-bind:key="operand2" value="operand2">
+            <label>Операнд 2</label>
+
         </div> 
 
     </div>
@@ -54,6 +55,10 @@
 <script>
 export default {
   name: "Calc",
+  props: {
+    key: String 
+  }, 
+
   data:()=>({
     operand1: "",
     operand2: "",
@@ -82,12 +87,16 @@ export default {
         },
 
         addValue(key){
-            this.$emit(key);
+            this[this.radio] = key
+            key = key.json
+            this.$emit(key.value)
         },
 
-        remove(index){
-            this.$delete(this.finds, index)
-        }
+        remove(i){
+            // this.$delete(this.finds, index)
+            this.key[i].value = '';
+            this.key[i].value1 = '';
+       }
   }
 }
 </script>
