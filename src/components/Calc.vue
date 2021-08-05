@@ -1,8 +1,8 @@
 <template>
   <div>
     <div>
-      <input class="input" v-bind:key="radio" type="number" placeholder="операнд1" v-model.number="operand1" />
-      <input class="input" v-bind:key="radio" type="number" placeholder="операнд2" v-model.number="operand2" />
+      <input class="input" type="number" placeholder="операнд1" v-model.number="operand1"/>
+      <input class="input" type="number" placeholder="операнд2" v-model.number="operand2" />
     </div>
     <div class="error">
         {{ error }}
@@ -31,11 +31,11 @@
         <button class="key" v-for="(key, idx) in keyboard"
             :key="idx"
             v-bind:value="key"
-            @click="addValue"
+            @click="addValue(key)"
             >
                 {{ key }}
         </button>
-        <button class="key" :key:="dKey" @click="remove(i)">
+        <button class="key" :key:="dKey" @click="remove(idx)">
             {{ dKey }}
         </button>
 
@@ -44,7 +44,6 @@
             <label>Операнд 1</label>
             <input type="radio" v-model="radio" v-bind:key="operand2" value="operand2">
             <label>Операнд 2</label>
-
         </div> 
 
     </div>
@@ -57,8 +56,8 @@ export default {
   name: "Calc",
   props: {
     key: String 
-  }, 
-
+  },
+  
   data:()=>({
     operand1: "",
     operand2: "",
@@ -69,7 +68,8 @@ export default {
     error: "",
     checked: true,
     text: "Отобразить экранную клавиатуру",
-    radio: ""
+    radio: "",
+    test: ""
     }),
 
   methods: {
@@ -88,14 +88,19 @@ export default {
 
         addValue(key){
             this[this.radio] = key
-            key = key.json
-            this.$emit(key.value)
+            // this.key = this.$event.target
+            // this.$emit(key)
+            // this[this.radio] = this.radio.push(key);
+            // this.key.push(key.target.value);
         },
 
-        remove(i){
-            // this.$delete(this.finds, index)
-            this.key[i].value = '';
-            this.key[i].value1 = '';
+        remove(idx) {
+            // this.key[idx].value = ''
+            // this.key[i].value1 = ''
+            // this.key.splice(key)
+            // this[this.radio] = this.key.splice(idx,1); 
+            this.key.splice(idx,1);
+            // this.$delete(this.key, idx) 
        }
   }
 }
