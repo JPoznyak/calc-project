@@ -28,14 +28,14 @@
     </div>
 
      <div class="keyboard" v-if="checked">
-        <button class="key" v-for="(key, idx) in keyboard"
-            :key="idx"
+        <button class="key" v-for="key in keyboard"
+            :key="key"
             v-bind:value="key"
-            @click="addValue(key)"
+            @click="addNumber(key)"
             >
                 {{ key }}
         </button>
-        <button class="key" :key:="dKey" @click="remove(idx)">
+        <button class="key" :key:="dKey" @click="removeNum">
             {{ dKey }}
         </button>
 
@@ -86,21 +86,17 @@ export default {
             this.result = calcOperations[op]()
         },
 
-        addValue(key){
-            this[this.radio] = key
-            // this.key = this.$event.target
+        addNumber(key){
             // this.$emit(key)
-            // this[this.radio] = this.radio.push(key);
-            // this.key.push(key.target.value);
+            // this[this.radio] = key
+            this[this.radio] = +(this[this.radio] += String(key))  
         },
 
-        remove(idx) {
-            // this.key[idx].value = ''
-            // this.key[i].value1 = ''
+        removeNum() {
             // this.key.splice(key)
             // this[this.radio] = this.key.splice(idx,1); 
-            this.key.splice(idx,1);
             // this.$delete(this.key, idx) 
+            this[this.radio]= +String(this[this.radio]).slice(0,-1)
        }
   }
 }
